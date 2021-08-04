@@ -1,7 +1,7 @@
 package com.santimattius.template.presentation.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.santimattius.template.domain.usecases.GetPictures
+import com.santimattius.template.domain.usecases.GetPopularMovies
 import com.santimattius.template.utils.CoroutinesTestRule
 import com.santimattius.template.utils.getOrAwaitValue
 import io.mockk.coEvery
@@ -26,33 +26,33 @@ class HomeViewModelTest {
     @Test
     fun `check case when init view model`() = runBlockingTest {
 
-        val userCase = mockk<GetPictures>()
+        val userCase = mockk<GetPopularMovies>()
 
         coEvery { userCase() } returns emptyList()
 
         val viewModel = HomeViewModel(userCase)
 
-        Assert.assertEquals(viewModel.state.getOrAwaitValue(), Data(emptyList()))
+        Assert.assertEquals(viewModel.state.getOrAwaitValue(), HomeState.Data(emptyList()))
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun `check when init fail with exception`() = runBlockingTest {
 
-        val userCase = mockk<GetPictures>()
+        val userCase = mockk<GetPopularMovies>()
 
         coEvery { userCase() } throws Exception()
 
         val viewModel = HomeViewModel(userCase)
 
-        Assert.assertEquals(viewModel.state.getOrAwaitValue(), Error)
+        Assert.assertEquals(viewModel.state.getOrAwaitValue(), HomeState.Error)
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun `check case with retry`() = runBlockingTest {
 
-        val userCase = mockk<GetPictures>()
+        val userCase = mockk<GetPopularMovies>()
 
         coEvery { userCase() } returns emptyList()
 
@@ -60,7 +60,7 @@ class HomeViewModelTest {
 
         viewModel.retry()
 
-        Assert.assertEquals(viewModel.state.getOrAwaitValue(), Data(emptyList()))
+        Assert.assertEquals(viewModel.state.getOrAwaitValue(), HomeState.Data(emptyList()))
     }
 
 }

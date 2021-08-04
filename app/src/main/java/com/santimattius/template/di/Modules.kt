@@ -1,27 +1,22 @@
 package com.santimattius.template.di
 
-import com.santimattius.template.core.service
-import com.santimattius.template.data.datasources.LocalDataSource
+import com.santimattius.moviedb.TheMovieDbClient
+import com.santimattius.template.BuildConfig
 import com.santimattius.template.data.datasources.RemoteDataSource
-import com.santimattius.template.data.datasources.implementation.RoomDataSource
-import com.santimattius.template.data.datasources.implementation.ServiceDataSource
-import com.santimattius.template.data.datasources.implementation.client.PicSumClient
-import com.santimattius.template.data.datasources.implementation.client.PicSumService
-import com.santimattius.template.data.datasources.implementation.database.PicSumDataBase
-import com.santimattius.template.data.repositories.PicSumRepository
-import com.santimattius.template.domain.repositories.PicturesRepository
-import com.santimattius.template.domain.usecases.GetPictures
+import com.santimattius.template.data.datasources.implementation.MovieDataSource
+import com.santimattius.template.data.repositories.TMDbRepository
+import com.santimattius.template.domain.repositories.MovieRepository
+import com.santimattius.template.domain.usecases.GetPopularMovies
 import com.santimattius.template.presentation.viewmodels.HomeViewModel
-import kotlinx.coroutines.Dispatchers
-import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 /**
  * presentation layer definition module
  */
 private val presentationModule = module {
-    viewModel { HomeViewModel(getPictures = get<GetPictures>()) }
+    viewModel { HomeViewModel(getPopularMovies = get<GetPopularMovies>()) }
 }
 
 
@@ -29,7 +24,7 @@ private val presentationModule = module {
  * domain layer definition module
  */
 private val domainModule = module {
-    factory { GetPictures(repository = get<PicturesRepository>()) }
+    factory { GetPopularMovies(repository = get<MovieRepository>()) }
 }
 
 /**
@@ -37,29 +32,28 @@ private val domainModule = module {
  */
 private val dataModule = module {
 
-    single<PicSumService> { service("https://picsum.photos") }
+    factory<RemoteDataSource> { MovieDataSource(theMovieDbClient = get<TheMovieDbClient>()) }
 
-    single<PicSumClient> { PicSumClient(get<PicSumService>()) }
-
-    factory<RemoteDataSource> { ServiceDataSource(client = get<PicSumClient>()) }
-
-    factory<LocalDataSource> {
-        RoomDataSource(
-            picSumDao = PicSumDataBase.create(
-                androidApplication()
-            ).picSumDao(),
-            dispatcher = Dispatchers.IO
-        )
-    }
-
-    factory<PicturesRepository> {
-        PicSumRepository(
-            localDataSource = get<LocalDataSource>(),
+    factory<MovieRepository> {
+        TMDbRepository(
             remoteDataSource = get<RemoteDataSource>()
         )
     }
 
 }
 
+private const val API_KEY_NAMED = "api_key"
+private const val BASE_URL_NAMED = "base_url"
 
-internal val modules = listOf(presentationModule, domainModule, dataModule)
+private val theMovieDBModule = module {
+    single(named(API_KEY_NAMED)) { BuildConfig.API_KEY }
+    single(named(BASE_URL_NAMED)) { "https://api.themoviedb.org" }
+    single<TheMovieDbClient> {
+        TheMovieDbClient.factory(
+            get(named(BASE_URL_NAMED)),
+            get(named(API_KEY_NAMED))
+        )
+    }
+}
+
+internal val modules = listOf(presentationModule, domainModule, dataModule, theMovieDBModule)

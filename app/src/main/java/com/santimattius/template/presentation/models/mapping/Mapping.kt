@@ -1,17 +1,13 @@
 package com.santimattius.template.presentation.models.mapping
 
-import com.santimattius.template.domain.entities.Picture
-import com.santimattius.template.presentation.models.PictureUiModel
+import com.santimattius.template.domain.entities.Movie
+import com.santimattius.template.presentation.models.MovieUiModel
 
 
-internal fun List<Picture>.asUiModels() = map { it.asUiModel() }
+internal fun List<Movie>.asUiModels() = map { it.asUiModel() }
 
-internal fun Picture.asUiModel() =
-    PictureUiModel(
-        id = id,
-        author = author,
-        imageUrl = downloadUrl,
-        height = height,
-        width = width,
-        link = url
-    )
+internal fun Movie.asUiModel() = MovieUiModel(
+    id = this.id,
+    title = this.title,
+    imageUrl = this.posterPath,
+)

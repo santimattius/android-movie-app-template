@@ -1,8 +1,8 @@
 package com.santimattius.template.data.datasources
 
-import com.santimattius.template.domain.entities.Picture
+import com.santimattius.template.domain.entities.Movie
 
 interface RemoteDataSource {
 
-    suspend fun getPictures(): List<Picture>
+    suspend fun getPopularMovies(): List<Movie>
 }
