@@ -2,11 +2,12 @@
 
 This is a template to build an Android app applying good practices and using a clean architecture, you will see that the code is super decoupled with external frameworks and even with the same Android framework, this will help you to model your domain purely in Kotlin without generating external dependencies.
 
-[comment]: <> (<p align="center">)
+<p align="center">
 
-[comment]: <> (  <img src="https://github.com/santimattius/android-arch-template/blob/readme_start/screenshoot/android-clean-arch-capture.png?raw=true" alt="App Capture"/>)
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_light.png?raw=true" alt="App Capture"/>
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_dark.png?raw=true" alt="App Capture"/>
 
-[comment]: <> (</p>)
+</p>
 
 ## Dependencies
 
