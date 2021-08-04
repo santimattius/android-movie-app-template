@@ -11,8 +11,9 @@ import com.santimattius.template.R
 import com.santimattius.template.core.presentation.DialogAction
 import com.santimattius.template.core.presentation.openLink
 import com.santimattius.template.core.presentation.showDialog
-import com.santimattius.template.databinding.HomeFragmentBinding
-import com.santimattius.template.presentation.adapters.HomeAdapter
+import com.santimattius.template.databinding.PopularMoviesFragmentBinding
+
+import com.santimattius.template.presentation.adapters.PopularMoviesAdapter
 import com.santimattius.template.presentation.viewmodels.HomeState
 import com.santimattius.template.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,25 +23,22 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
 
-    private val adapter: HomeAdapter by lazy {
-        HomeAdapter {
-            openLink(it.imageUrl)
-        }
+    private val homeAdapter: PopularMoviesAdapter by lazy {
+        PopularMoviesAdapter { openLink(it.imageUrl) }
     }
 
 
-    private lateinit var viewBinding: HomeFragmentBinding
+    private lateinit var viewBinding: PopularMoviesFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = HomeFragmentBinding.inflate(inflater, container, false).apply {
-            this.homePictures.layoutManager = GridLayoutManager(
-                this.homePictures.context,
-                SPAN_ITEMS
-            )
-            this.homePictures.adapter = adapter
+        viewBinding = PopularMoviesFragmentBinding.inflate(inflater, container, false).apply {
+            with(this.gridOfMovies) {
+                this.layoutManager = GridLayoutManager(this.context, SPAN_ITEMS)
+                this.adapter = homeAdapter
+            }
         }
         return viewBinding.root
     }
@@ -55,7 +53,7 @@ class HomeFragment : Fragment() {
             is HomeState.Data -> {
                 loading(visible = false)
                 viewBinding.textEmptyResult.isVisible = state.values.isEmpty()
-                adapter.submitList(state.values)
+                homeAdapter.submitList(state.values)
             }
             HomeState.Error -> {
                 loading(visible = false)

@@ -6,7 +6,7 @@ import com.santimattius.template.presentation.adapters.diff.MovieDiffItem
 import com.santimattius.template.presentation.adapters.viewholders.MovieViewHolder
 import com.santimattius.template.presentation.models.MovieUiModel
 
-class HomeAdapter(private val onItemClick: (MovieUiModel) -> Unit = {}) :
+class PopularMoviesAdapter(private val onItemClick: (MovieUiModel) -> Unit = {}) :
     ListAdapter<MovieUiModel, MovieViewHolder>(MovieDiffItem()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
