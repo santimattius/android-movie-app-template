@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.santimattius.template.R
 import com.santimattius.template.core.presentation.DialogAction
 import com.santimattius.template.core.presentation.openLink
 import com.santimattius.template.core.presentation.showDialog
 import com.santimattius.template.databinding.HomeFragmentBinding
 import com.santimattius.template.presentation.adapters.HomeAdapter
-import com.santimattius.template.presentation.viewmodels.*
+import com.santimattius.template.presentation.viewmodels.HomeState
+import com.santimattius.template.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -35,7 +36,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewBinding = HomeFragmentBinding.inflate(inflater, container, false).apply {
-            this.homePictures.layoutManager = LinearLayoutManager(this.homePictures.context)
+            this.homePictures.layoutManager = GridLayoutManager(
+                this.homePictures.context,
+                SPAN_ITEMS
+            )
             this.homePictures.adapter = adapter
         }
         return viewBinding.root
@@ -48,16 +52,16 @@ class HomeFragment : Fragment() {
 
     private fun onStateChange(state: HomeState) {
         when (state) {
-            is Data -> {
+            is HomeState.Data -> {
                 loading(visible = false)
                 viewBinding.textEmptyResult.isVisible = state.values.isEmpty()
                 adapter.submitList(state.values)
             }
-            Error -> {
+            HomeState.Error -> {
                 loading(visible = false)
                 showError()
             }
-            Loading -> {
+            HomeState.Loading -> {
                 loading(visible = true)
             }
         }
@@ -77,5 +81,9 @@ class HomeFragment : Fragment() {
 
 
     private fun loading(visible: Boolean) = run { viewBinding.homeProgressBar.isVisible = visible }
+
+    companion object {
+        private const val SPAN_ITEMS = 2
+    }
 
 }

@@ -1,33 +1,12 @@
-# Android App Template
-
-[![codecov](https://codecov.io/gh/santimattius/android-arch-template/branch/master/graph/badge.svg?token=7ITWBL56NJ)](https://codecov.io/gh/santimattius/android-arch-template) [![codecov](https://www.travis-ci.com/santimattius/android-arch-template.svg?token=P7xvicFZMo2reEHHNuJS&branch=master)](https://www.travis-ci.com/santimattius/android-arch-template)
+# Android Movie App Template
 
 This is a template to build an Android app applying good practices and using a clean architecture, you will see that the code is super decoupled with external frameworks and even with the same Android framework, this will help you to model your domain purely in Kotlin without generating external dependencies.
 
 <p align="center">
-  <img src="https://github.com/santimattius/android-arch-template/blob/readme_start/screenshoot/android-clean-arch-capture.png?raw=true" alt="App Capture"/>
-</p>
 
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_light.png?raw=true" alt="App Capture"/>
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_dark.png?raw=true" alt="App Capture"/>
 
-# Application architecture
-
-In the following images you will see how the app is built and what its levels of abstraction are.
-
-## General
-
-<p align="center">
-  <img src="https://github.com/santimattius/android-arch-template/blob/readme_start/screenshoot/android-clean-arch-general.png?raw=true" alt="general architecture"/>
-</p>
-
-## Layers
-<p align="center">
-  <img src="https://github.com/santimattius/android-arch-template/blob/readme_start/screenshoot/android-clean-arch-layers.png?raw=true" alt="architecture layers"/>
-</p>
-
-## Project structure
-
-<p align="left">
-  <img src="https://github.com/santimattius/android-arch-template/blob/readme_start/screenshoot/android-clean-arch-packages.png?raw=true" alt="Project packages"/>
 </p>
 
 ## Dependencies
