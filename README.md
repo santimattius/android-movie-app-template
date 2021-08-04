@@ -4,8 +4,8 @@ This is a template to build an Android app applying good practices and using a c
 
 <p align="center">
 
-  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_light.png?raw=true" alt="App Capture"/>
-  <img src="https://github.com/santimattius/android-movie-app-template/blob/feature/add_movie_db_client/screenshoot/screenshot_app_dark.png?raw=true" alt="App Capture"/>
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/master/screenshoot/screenshot_app_light.png?raw=true" alt="App Capture"/>
+  <img src="https://github.com/santimattius/android-movie-app-template/blob/master/screenshoot/screenshot_app_dark.png?raw=true" alt="App Capture"/>
 
 </p>
 
