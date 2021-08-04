@@ -9,6 +9,14 @@ This is a template to build an Android app applying good practices and using a c
 
 </p>
 
+## TheMovieDB API
+
+Check this documentation: https://www.themoviedb.org/documentation/api
+
+### Setup TheMovieDb apikey on project
+Using local properties for define api key:
+- Example: https://gist.github.com/ramonaharrison/7a2061bf5ee920dfff53b37ed83520ec
+
 ## Dependencies
 
 Below you will find the libraries used to build the template and according to my criteria the most used in android development so far.
